@@ -1,41 +1,11 @@
-// console.log(localStorage)
-
-// localStorage.setItem(`testStorage`, `Labas`)
-
-// localStorage.setItem(`testStorage`, `Sveikas`)
-
-
-// let testStorage = localStorage.getItem(`testStorage`)
-// console.log(testStorage)
-
-// localStorage.removeItem(`testStorage`)
-// console.log(localStorage.getItem(`testStorage`))
-
-// let button = document.querySelector(`button`)
-// let span = document.querySelector(`span`)
-// let counter = 0
-// button.addEventListener(`click`, () => {
-//     let counter =  localStorage.getItem(`counter`)
-//     let updateCounter = Number(counter) + 1
-//     console.log(updateCounter)
-//     span.textContent = updateCounter
-//     localStorage.setItem(`counter`, updateCounter)
-// })
-
-
 console.log(localStorage);
-// Sukurti naują localStorage narį
 localStorage.setItem('testStorage', 'Sveikas');
-// Redaguoti localStorage narį
 localStorage.setItem('testStorage', 'Labas');
-// Gauti localStorage narį
 let testStorage = localStorage.getItem('testStorage');
 console.log(testStorage);
-// Ištrinti localStorage narį
 localStorage.removeItem('testStorage');
 console.log(localStorage.getItem('testStorage'));
 
-// Kito duomenų tipo (ne string) patalpinimas localStorage
 let num = 10;
 console.log(typeof num);
 localStorage.setItem('num', num);
@@ -49,7 +19,6 @@ let arrFromLocal = localStorage.getItem('arr');
 console.log(arrFromLocal);
 console.log(typeof arrFromLocal);
 
-// Masyvo (arba kito duomenų tipo) pavertimas į json objektą (string)
 console.log(arr);
 console.log(typeof arr);
 let strArr = JSON.stringify(arr);
@@ -57,12 +26,10 @@ console.log(strArr)
 console.log(typeof strArr)
 localStorage.setItem('strArr', strArr);
 
-// String'o (json) keitimas į masyvą (arba kitą duomenų tipą)
 let strArrFromLocal = localStorage.getItem('strArr');
 let convertedArrFromLocal = JSON.parse(strArrFromLocal);
 console.log(convertedArrFromLocal);
 console.log(typeof convertedArrFromLocal);
-// Objekto keitimas į/iš json
 let obj = {
   name: 'John',
   surname: 'Doe',
