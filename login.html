@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="login.css">
+</head>
+<body>
+    <div class="container">
+        <form id="login-form">
+            <fieldset class="login-field">
+                <div class="info-inputs">
+                <div class="container-input-label">
+                    <label for="userName">User name</label><br>
+                    <input id="userName" class="inputFields" name="writeInput" type="text" value="" placeholder="User name" required>
+
+                </div>
+                <div class="container-input-label">
+                    <label for="password">Password</label><br>
+                    <input id="password" class="inputFields" name="writeInput" type="password" value="" placeholder="Password" required>
+
+                </div>
+                
+                <div class="container-checkbox-label">
+                    <input type="checkbox" id="consentFirst" name="consent">
+                    <label for="consentFirst">Sutinkate su pirma slyga</label><br>
+                    <!-- <input type="checkbox" id="consentSecondary" name="consent"checked >
+                    <label for="consentSecondary">Sutinkate su antra slyga</label><br> -->
+
+                </div>
+            </div>
+           
+                <div class="submit-button">
+                    <input id="submit" class="button" type="submit" value="Submit form" disabled>
+                </div>
+                
+            </fieldset>
+
+
+
+
+        </form>
+    </div>
+    <script src="login.js"></script>
+</body>
+</html>
+
+<!-- PIRMA DALIS:
+1. Sukurti login.html failą.
+2. Šiame puslapyje sukurti formą, kurioje yra:
+    2.1. Text tipo input elementas skirtas vartotojo prisijungimo vardui įrašyti.
+    2.2. Password tipo input elementas skirtas vartotojo slaptažodžiui įrašyti.
+    2.3. Checkbox tipo input elementas skirtas pažymėti jog sutinkama su sąlygomis.
+    2.4. Submit tipo input elementas skirtas priduoti (submit) formą.
+3. Visi input elementai (išskyrus submit) turi turėti label elementus. -->

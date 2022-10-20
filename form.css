@@ -1,0 +1,140 @@
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:300);
+* {
+  font-family: "Open Sans", sans-serif;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background: #111;
+  background-repeat: no-repeat;
+}
+
+label {
+  font-size: 10px;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+.fieldset-right {
+  text-align: justify;
+  border-color: rgb(10, 180, 180);
+}
+
+.writingInputs {
+  border: none;
+}
+
+.container {
+  background: url(https://source.unsplash.com/TV2gg2kZD1o/1600x800);
+  background-repeat: no-repeat;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 1000px;
+  height: 500px;
+  text-align: center;
+  display: flex;
+  color: white;
+  box-shadow: 3px 10px 20px 5px rgba(0, 0, 0, 0.5);
+}
+
+.students-info {
+  width: 45%;
+  display: grid;
+  background: rgba(20, 20, 20, 0.8);
+  padding: 30px 0;
+  border-right: 5px solid rgba(30, 30, 30, 0.8);
+  text-align: left;
+}
+.students-info h2 {
+  margin: 0;
+  font-weight: 300;
+}
+.students-info .students-result {
+  height: 200px;
+}
+.students-info .students-item {
+  justify-self: left;
+}
+.students-info .students-item .button {
+  position: relative;
+  left: 135px;
+  top: -88px;
+  padding: 5px 30px;
+  font-size: 10px;
+}
+.students-info .students-list {
+  width: 100%;
+  justify-self: left;
+  font-size: 10px;
+  display: flex;
+  overflow-y: scroll;
+  /* gap: 10px; */
+  flex-wrap: wrap;
+}
+.students-info .students-list .students-item {
+  width: 50%;
+}
+.students-info .students-list .student-result {
+  height: 133px;
+  border: 1px solid rgb(10, 180, 180);
+}
+.students-info .students-list .student-result .button {
+  position: relative;
+  left: 135px;
+  top: -88px;
+  padding: 5px 30px;
+  font-size: 10px;
+}
+
+#contacts {
+  display: grid;
+  grid-template-rows: 1fr 1fr;
+  width: 55%;
+  padding: 23px 0;
+  background: rgba(20, 40, 40, 0.8);
+  transition: 0.2s;
+}
+#contacts h2 {
+  font-weight: 300;
+}
+
+.inputFields {
+  margin: 10px 10px;
+  font-size: 10px;
+  padding: 10px;
+  width: 200px;
+  border: 1px solid rgb(10, 180, 180);
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  background: rgba(20, 20, 20, 0.2);
+  color: white;
+  outline: none;
+}
+
+.inputs-container {
+  display: flex;
+  justify-content: space-around;
+}
+
+.button {
+  border: 1px solid rgb(10, 180, 180);
+  background: rgba(20, 20, 20, 0.6);
+  font-size: 18px;
+  color: white;
+  margin-top: 20px;
+  padding: 10px 50px;
+  cursor: pointer;
+  transition: 0.4s;
+}
+.button:hover {
+  background: rgba(20, 20, 20, 0.8);
+  padding: 10px 80px;
+}/*# sourceMappingURL=form.css.map */
