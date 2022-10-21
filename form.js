@@ -169,8 +169,8 @@ let dataHidden = true;
 }
 
 let id = 1
-let rangeLabel = document.querySelector("#rangeLabel")
-let pointsInput = document.querySelector("#range")
+let rangeLabel = document.querySelector("#knowledgeLabel")
+let pointsInput = document.querySelector("#knowledge")
 pointsInput.addEventListener("input", () => {
     rangeLabel.textContent = `Knowledge: ${pointsInput.value}`
 })
@@ -188,7 +188,7 @@ contactsForm.addEventListener("submit", (event) => {
     let age = event.target.elements.age.value
     let phoneNumber = event.target.elements.phoneNumber.value
     let email = event.target.elements.email.value
-    let range = event.target.elements.range.value
+    let knowledge = event.target.elements.knowledge.value
  
     let checkboxCheckeds = []
     
@@ -215,7 +215,7 @@ contactsForm.addEventListener("submit", (event) => {
     emailElement.innerHTML = `<strong>Email:</strong> <span class="hidden-area">****</span>`;
     ul.append(emailElement)
     
-    addLiElement(ul, `Knowledge: ${range}`)
+    addLiElement(ul, `Knowledge: ${knowledge}`)
     addLiElement(ul, `Group: ${radioInput.value}`)
     addLiElement(ul, `Interests: ${checkboxCheckeds}`)
     
@@ -295,7 +295,7 @@ object.lastName = localStorage.getItem('lastName');
 object.age = localStorage.getItem('age');
 object.phoneNumber = localStorage.getItem('phoneNumber');
 object.email = localStorage.getItem('email');
-object.range = localStorage.getItem('range');
+object.knowledge = localStorage.getItem('knowledge');
 object.group = localStorage.getItem('radio');
 object.radio = localStorage.getItem('it-program');
 
@@ -311,7 +311,7 @@ console.log(object.firstName)
     localStorage.removeItem('age');
     localStorage.removeItem('phoneNumber');
     localStorage.removeItem('email');
-    localStorage.removeItem('range');
+    localStorage.removeItem('knowledge');
     localStorage.removeItem('radio');
     localStorage.removeItem('it-program');
 
@@ -344,7 +344,7 @@ function formDatainLocalStorage(form) {
     let localAge = localStorage.getItem(`age`)
     let localPhoneNumber = localStorage.getItem(`phoneNumber`)
     let localEmail = localStorage.getItem(`email`)
-    let localItKnowledge = localStorage.getItem(`range`)
+    let localItKnowledge = localStorage.getItem(`knowledge`)
     let localGroup = localStorage.getItem(`radio`)
     let localInterests = JSON.parse(localStorage.getItem(`it-program`))
 
@@ -354,7 +354,7 @@ function formDatainLocalStorage(form) {
     let inputAge = form.elements.age
     let inputPhoneNumber = form.elements.phoneNumber
     let inputEmail = form.elements.email
-    let inputItKnowledge = form.elements.range
+    let inputItKnowledge = form.elements.knowledge
     let inputgroup = form.elements[`radio`]
 
 
