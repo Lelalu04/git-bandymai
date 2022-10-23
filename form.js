@@ -58,25 +58,25 @@ accArr = [
 
 let id = localStorage.getItem(`id`)
 
-if (id == null){
+if (id == null) {
     id = 1
     localStorage.setItem(`id`, id)
 }
 
 let localStorageStudentData = JSON.parse(localStorage.getItem(`students`))
-if (!localStorageStudentData){
+if (!localStorageStudentData) {
 
-    localStorage.setItem("students",JSON.stringify(accArr))
-} 
+    localStorage.setItem("students", JSON.stringify(accArr))
+}
 
 let contactsForm = document.querySelector("#contacts")
 let studentsSearchForm = document.querySelector("#students-search-form")
 
 studentsSearchForm.addEventListener(`submit`, (e) => {
     e.preventDefault()
-    let search = document.getElementById(`search`) 
+    let search = document.getElementById(`search`)
     console.log(e)
-    let searchSelect = document.getElementById(`search-select`) 
+    let searchSelect = document.getElementById(`search-select`)
     let items = document.querySelectorAll(".students-item")
     items.forEach((item) => {
         let li = item.querySelectorAll(`li`)
@@ -84,25 +84,25 @@ studentsSearchForm.addEventListener(`submit`, (e) => {
 
         li.forEach((element) => {
             let result = ""
-            if(searchSelect.value == 0){
-                if(element.innerText.toLowerCase().includes(search.value.toLowerCase())){
+            if (searchSelect.value == 0) {
+                if (element.innerText.toLowerCase().includes(search.value.toLowerCase())) {
                     count++
-                } 
-            } else{
+                }
+            } else {
                 let options = searchSelect.querySelectorAll(`option`)
                 options.forEach(option => {
-                    if(searchSelect.value === option.value){
+                    if (searchSelect.value === option.value) {
                         result = `${option.textContent}: ${search.value.toLowerCase()}`
-                        if(element.innerText.toLowerCase().includes(result.toLowerCase())){
+                        if (element.innerText.toLowerCase().includes(result.toLowerCase())) {
                             count++
-                        }    
+                        }
                     }
                 })
             }
         })
-        if(count > 0){
+        if (count > 0) {
             item.style.display = `block`
-        } else{
+        } else {
             item.style.display = `none`
         }
     })
@@ -112,8 +112,8 @@ localStorageStudentData.map(student => {
     renderSingleStudent(student)
 })
 
-function renderSingleStudent(data){
-    
+function renderSingleStudent(data) {
+
     let id = data.id
     let firstName = data.firstName
     let lastName = data.lastName
@@ -125,80 +125,25 @@ function renderSingleStudent(data){
     let interest = data.interest
 
     let ul = document.createElement("ul")
-
     addLiElement(ul, `ID: ${id}`)
-    addLiElement(ul, `First name: ${firstName}`)
-    addLiElement(ul, `Last name: ${lastName}`)
-    addLiElement(ul, `Age: ${age}`)
-    
-    let phoneElement = document.createElement('li');
-    phoneElement.innerHTML = `<strong>Phone:</strong> <span class="hidden-area">****</span>`;
-    ul.append(phoneElement)
-
-    let emailElement = document.createElement('li');
-    emailElement.innerHTML = `<strong>Email:</strong> <span class="hidden-area">****</span>`;
-    ul.append(emailElement)
-    
-    addLiElement(ul, `Knowledge: ${knowledge}`)
-    addLiElement(ul, `Group: ${group}`)
-    addLiElement(ul, `Interests: ${interest}`)
-    
-    let studentsItem = document.createElement("div")
-    studentsItem.setAttribute("class", "students-item")
-
-    let studentsList = document.querySelector(".students-list")
-    
-    let removeItem = document.createElement("button")
-    removeItem.classList = "button remove-button"
-    removeItem.textContent = `remove`
-
-    let buttonShowNumber = document.createElement("button")
-    buttonShowNumber.classList = "button item-button"
-    buttonShowNumber.textContent = "Show"
-
-    studentsItem.append(ul,buttonShowNumber, removeItem)
-    studentsList.prepend(studentsItem)
-
-    let removeButton = document.querySelector(`.remove-button`)
-    console.log(removeButton)
-    removeButton.addEventListener(`click`, () => {
-        studentsItem.remove()
-    })
-
-    let buttonShow = document.querySelector('.item-button')
-    let dataHidden = true;
-    buttonShow.addEventListener("click", () => {
-        let privateEmail = emailElement.querySelector('.hidden-area');
-        let privatePhone = phoneElement.querySelector('.hidden-area');
-        
-        if (dataHidden) {
-            privateEmail.textContent = email
-            privatePhone.textContent = phoneNumber;
-        
-        } else {
-            privateEmail.textContent = "****"
-            privatePhone.textContent = "****"
-        }
-        dataHidden = !dataHidden;
-    })
+    creatingItem(ul, id, firstName, lastName, age, knowledge, group, interest, email, phoneNumber)
 }
-   
 
 contactsForm.addEventListener("submit", (event) => {
     event.preventDefault()
-    
+
     let group = document.querySelector(`input[name="group"]:checked`).value
     let interests = document.querySelectorAll(`input[type="checkbox"]`)
     id++
     localStorage.setItem(`id`, id)
-    
+
     let firstName = event.target.elements.firstName.value
     let lastName = event.target.elements.lastName.value
     let age = event.target.elements.age.value
     let phoneNumber = event.target.elements.phoneNumber.value
     let email = event.target.elements.email.value
     let knowledge = event.target.elements.knowledge.value
- 
+
     let interestCheckeds = []
 
     interests.forEach(element => {
@@ -206,70 +151,71 @@ contactsForm.addEventListener("submit", (event) => {
             interestCheckeds.push(element.value)
         }
     })
-    
-    let ul = document.createElement("ul")
-    ul.textContent = "ID: " + id
 
-    addLiElement(ul, `First name: ${firstName}`)
-    addLiElement(ul, `Last name: ${lastName}`)
-    addLiElement(ul, `Age: ${age}`)
-    
-    let phoneElement = document.createElement('li');
-    phoneElement.innerHTML = `<strong>Phone:</strong> <span class="hidden-area">****</span>`;
-    ul.append(phoneElement)
-
-    let emailElement = document.createElement('li');
-    emailElement.innerHTML = `<strong>Email:</strong> <span class="hidden-area">****</span>`;
-    ul.append(emailElement)
-    
-    addLiElement(ul, `Knowledge: ${knowledge}`)
-    addLiElement(ul, `Group: ${group}`)
-    addLiElement(ul, `Interests: ${interestCheckeds}`)
-    
-    let buttonShowNumber = document.createElement("button")
-    buttonShowNumber.classList = "button item-button"
-    buttonShowNumber.textContent = "Show"
-    
-    let removeItem = document.createElement("button")
-    removeItem.classList = "button remove-button"
-    removeItem.textContent = `remove`
-    
-    let studentsItem = document.createElement("div")
-    studentsItem.setAttribute("class", "students-item")
-    
-    studentsItem.append(ul, buttonShowNumber, removeItem)
-
-        let studentsList = document.querySelector(".students-list")
-
-    studentsList.prepend(studentsItem)
-
-    let removeButton = document.querySelector(`.remove-button`)
-    console.log(removeButton)
-    removeButton.addEventListener(`click`, () => {
-        studentsItem.remove()
-
-    })
-   
-    let buttonShow = document.querySelector('.item-button')
-    let dataHidden = true;
-
-    buttonShow.addEventListener("click", () => {
-        let privateEmail = emailElement.querySelector('.hidden-area');
-        let privatePhone = phoneElement.querySelector('.hidden-area');
-        
-        if (dataHidden) {
-            privateEmail.textContent = email
-            privatePhone.textContent = phoneNumber;
-        } else {
-            privateEmail.textContent = "****"
-            privatePhone.textContent = "****"   
+    let inputs = event.target.querySelectorAll(`input.inputFields`)
+    let error = event.target.querySelector(`.error`)
+    let canAddItem = true
+    console.log(inputs)
+    inputs.forEach(element => {
+        if (element.value === "") {
+            alarm(element, `This field is required.`)
+            canAddItem = false
+        } else if (element.name === `firstName`) {
+            if (element.value.length < 3) {
+                alarm(element, 'First name is too short. At least 3 symbols is required.')
+                canAddItem = false
+            } else {
+                cleanInput(element)
+            }
+        } else if (element.name === `lastName`) {
+            if (element.value.length < 3) {
+                alarm(element, 'Last name is too short. At least 3 symbols is required.')
+                canAddItem = false
+            } else {
+                cleanInput(element)
+            }
+        } else if (element.name === `age`) {
+            if (element.value > 120) {
+                alarm(element, 'Age cannot be more then 120 years.')
+                canAddItem = false
+            } else if (element.value < 0) {
+                alarm(element, 'Age cannot be a negative number.')
+                canAddItem = false
+            } else {
+                cleanInput(element)
+            }
+        } else if (element.name === 'phoneNumber') {
+            if (element.value.length < 9 || element.value.length > 12) {
+                canAddItem = false;
+                alarm(element, 'Phone number is invalid.');
+            } else {
+                cleanInput(element)
+            }
+        } else if (element.name === `email`) {
+            if (element.value.length < 9 || !element.value.includes(`@`) || !element.value.includes(`.`)) {
+                alarm(element, 'Email address is invalid.')
+                canAddItem = false
+            } else {
+                cleanInput(element)
+            }
         }
-        dataHidden = !dataHidden;
+
     })
-     console.log(id)
+
+    if (canAddItem === true) {
+        let ul = document.createElement("ul")
+        ul.textContent = "ID: " + id
+        creatingItem(ul, firstName, lastName, age, knowledge, group, interestCheckeds, email, phoneNumber)
+        warningBox(error, `Created: ${firstName}`, `rgb(10, 180, 180)`)
+
+    } else {
+        warningBox(error,`Some fields are missing...`, `red`)
+    }
+
+
+
+
     let localStorageStudentData = JSON.parse(localStorage.getItem(`students`))
-    console.log(id)
-    console.log(localStorageStudentData)
     let object = {
         id,
         firstName,
@@ -280,10 +226,8 @@ contactsForm.addEventListener("submit", (event) => {
         knowledge,
         group,
         interest: interestCheckeds
-
     }
     localStorageStudentData.push(object)
-
     localStorage.setItem(`students`, JSON.stringify(localStorageStudentData))
 
     contactsForm.reset()
@@ -298,15 +242,90 @@ contactsForm.addEventListener("submit", (event) => {
     localStorage.removeItem('it-program');
 
 })
-function addLiElement(ul, text ) {
+function creatingItem(ul, firstName, lastName, age, knowledge, group, interest, email, phoneNumber) {
+
+    addLiElement(ul, `First name: ${firstName}`)
+    addLiElement(ul, `Last name: ${lastName}`)
+    addLiElement(ul, `Age: ${age}`)
+
+    let phoneElement = document.createElement('li');
+    phoneElement.innerHTML = `<strong>Phone:</strong> <span class="hidden-area">****</span>`;
+    ul.append(phoneElement)
+
+    let emailElement = document.createElement('li');
+    emailElement.innerHTML = `<strong>Email:</strong> <span class="hidden-area">****</span>`;
+    ul.append(emailElement)
+
+    addLiElement(ul, `Knowledge: ${knowledge}`)
+    addLiElement(ul, `Group: ${group}`)
+    addLiElement(ul, `Interests: ${interest}`)
+
+    let studentsItem = document.createElement("div")
+    studentsItem.setAttribute("class", "students-item")
+
+    let studentsList = document.querySelector(".students-list")
+
+    let removeItem = document.createElement("button")
+    removeItem.classList = "button remove-button"
+    removeItem.textContent = `Remove`
+
+    let buttonShowNumber = document.createElement("button")
+    buttonShowNumber.classList = "button item-button"
+    buttonShowNumber.textContent = "Show"
+
+    studentsItem.append(ul, buttonShowNumber, removeItem)
+    studentsList.prepend(studentsItem)
+
+    let removeButton = document.querySelector(`.remove-button`)
+    removeButton.addEventListener(`click`, () => {
+        studentsItem.remove()
+    })
+
+    let buttonShow = document.querySelector('.item-button')
+    let dataHidden = true;
+    buttonShow.addEventListener("click", () => {
+        let privateEmail = emailElement.querySelector('.hidden-area');
+        let privatePhone = phoneElement.querySelector('.hidden-area');
+
+        if (dataHidden) {
+            privateEmail.textContent = email
+            privatePhone.textContent = phoneNumber;
+
+        } else {
+            privateEmail.textContent = "****"
+            privatePhone.textContent = "****"
+        }
+        dataHidden = !dataHidden;
+    })
+}
+
+function addLiElement(ul, text) {
     let li = document.createElement("li")
     li.textContent = text
     ul.append(li)
 
 }
 
+function cleanInput(element) {
+    element.style.borderColor = `rgb(10, 180, 180)`
+    element.placeholder = ``
+}
+
+function warningBox(error, text, color) {
+    error.textContent = text
+        error.style.color = color
+        setTimeout(() => {
+            error.textContent = ``
+        }, 5000);
+}
+
+function alarm(element, text) {
+    element.placeholder = text
+    element.style.borderColor = `red`
+}
+
 function formDatainLocalStorage(form) {
-   
+
     let localFirstName = localStorage.getItem(`firstName`)
     let localLastName = localStorage.getItem(`lastName`)
     let localAge = localStorage.getItem(`age`)
@@ -316,7 +335,7 @@ function formDatainLocalStorage(form) {
     let localGroup = localStorage.getItem(`group`)
     let localInterests = JSON.parse(localStorage.getItem(`it-program`))
 
-    
+
     let inputFirstName = form.elements.firstName
     let inputLastName = form.elements.lastName
     let inputAge = form.elements.age
@@ -324,7 +343,7 @@ function formDatainLocalStorage(form) {
     let inputEmail = form.elements.email
     let inputItKnowledge = form.elements.knowledge
     let inputgroup = form.elements[`group`]
-    
+
     inputFirstName.value = localFirstName
     inputLastName.value = localLastName
     inputAge.value = localAge
@@ -334,26 +353,26 @@ function formDatainLocalStorage(form) {
     console.log(inputItKnowledge.value)
     inputgroup.value = localGroup
     if (localInterests) {
-    localInterests.map(element => {
-        let interestElement = document.querySelector(`[value="${element}"]`);
-        if (interestElement) {
-        interestElement.checked = true;
+        localInterests.map(element => {
+            let interestElement = document.querySelector(`[value="${element}"]`);
+            if (interestElement) {
+                interestElement.checked = true;
             }
         })
     }
-    
+
     form.addEventListener('input', (event) => {
-            let activeInput = event.target;
-            let inputName = activeInput.name;
-            let inputValue = activeInput.value;
-            localStorage.setItem(inputName, inputValue);
-            let formInterests = document.querySelectorAll('[name="it-program"]:checked');
-                let interestValues = [];
-                formInterests.forEach(interest => {
-                interestValues.push(interest.value);
-                });
-                localStorage.setItem('it-program', JSON.stringify(interestValues));
-        })
+        let activeInput = event.target;
+        let inputName = activeInput.name;
+        let inputValue = activeInput.value;
+        localStorage.setItem(inputName, inputValue);
+        let formInterests = document.querySelectorAll('[name="it-program"]:checked');
+        let interestValues = [];
+        formInterests.forEach(interest => {
+            interestValues.push(interest.value);
+        });
+        localStorage.setItem('it-program', JSON.stringify(interestValues));
+    })
 }
 
 formDatainLocalStorage(contactsForm)
