@@ -29,8 +29,6 @@ ul {
 .writingInputs {
     border: none;
 }
-
-// .signupSection {
 .container {
 
     background: url(https://source.unsplash.com/TV2gg2kZD1o/1600x800);
@@ -55,55 +53,50 @@ ul {
     padding: 30px 0;
     border-right: 5px solid rgba(30, 30, 30, .8);
     text-align: left;
-
+    
     h2 {
         margin: 0;
         font-weight: 300;
     }
-    .students-result {
-        height: 200px;
-    }
 
     .students-item {
         justify-self: left;
-        
-        
-            // height: 220px;
-            .button{
-                position: relative;
-                left: 135px;
-                top: -88px;
-                padding: 5px 30px;
-                font-size: 10px;
-            }
-        
+
+        .button {
+            position: relative;
+            left: 14px;
+            top: -17px;
+            padding: 5px 30px;
+            font-size: 10px;
+            margin-left: 2px;
+        }
     }
 
     .students-list {
+        margin-top: 20px;
         width: 100%;
-    justify-self: left;
-    font-size: 10px;
-    display: flex;
-    overflow-y: scroll;
-    /* gap: 10px; */
-    // margin-top: 200px;
-    flex-wrap: wrap;
-    .students-item{
-        width: 50%;
-    }
-        .student-result{
-            height: 133px;
+        justify-self: left;
+        font-size: 10px;
+        display: flex;
+        overflow-y: scroll;
+        gap: 10px;
+        flex-wrap: wrap;
+
+        &::-webkit-scrollbar {
+            display: none;
+        }
+
+        .students-item {
+            width: 48%;
             border: 1px solid rgb(10, 180, 180);
-            .button{
-                position: relative;
-                left: 135px;
-                top: -88px;
-                padding: 5px 30px;
-                font-size: 10px;
+
+            ul {
+                padding-left: 20px;
             }
+        }
     }
 }
-}
+
 
 #contacts {
     display: grid;
@@ -115,6 +108,14 @@ ul {
 
     h2 {
         font-weight: 300;
+    }
+
+    .error {
+        position: absolute;
+        bottom: 40px;
+        left: 470px;
+        font-size: 10px;
+
     }
 }
 
