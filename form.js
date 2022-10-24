@@ -199,7 +199,6 @@ contactsForm.addEventListener("submit", (event) => {
                 cleanInput(element)
             }
         }
-
     })
 
     if (canAddItem === true) {
@@ -211,9 +210,6 @@ contactsForm.addEventListener("submit", (event) => {
     } else {
         warningBox(error,`Some fields are missing...`, `red`)
     }
-
-
-
 
     let localStorageStudentData = JSON.parse(localStorage.getItem(`students`))
     let object = {
