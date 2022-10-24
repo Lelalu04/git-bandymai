@@ -126,7 +126,7 @@ function renderSingleStudent(data) {
 
     let ul = document.createElement("ul")
     addLiElement(ul, `ID: ${id}`)
-    creatingItem(ul, id, firstName, lastName, age, knowledge, group, interest, email, phoneNumber)
+    creatingItem(ul, firstName, lastName, age, knowledge, group, interest, email, phoneNumber)
 }
 
 contactsForm.addEventListener("submit", (event) => {
@@ -152,90 +152,16 @@ contactsForm.addEventListener("submit", (event) => {
         }
     })
 
-    let inputs = event.target.querySelectorAll(`input.inputFields`)
-    let error = event.target.querySelector(`.error`)
-    let canAddItem = true
-    console.log(inputs)
-    inputs.forEach(element => {
-        if (element.value === "") {
-            alarm(element, `This field is required.`)
-            canAddItem = false
-        } else if (element.name === `firstName`) {
-            if (element.value.length < 3) {
-                alarm(element, 'First name is too short. At least 3 symbols is required.')
-                canAddItem = false
-            } else {
-                cleanInput(element)
-            }
-        } else if (element.name === `lastName`) {
-            if (element.value.length < 3) {
-                alarm(element, 'Last name is too short. At least 3 symbols is required.')
-                canAddItem = false
-            } else {
-                cleanInput(element)
-            }
-        } else if (element.name === `age`) {
-            if (element.value > 120) {
-                alarm(element, 'Age cannot be more then 120 years.')
-                canAddItem = false
-            } else if (element.value < 0) {
-                alarm(element, 'Age cannot be a negative number.')
-                canAddItem = false
-            } else {
-                cleanInput(element)
-            }
-        } else if (element.name === 'phoneNumber') {
-            if (element.value.length < 9 || element.value.length > 12) {
-                canAddItem = false;
-                alarm(element, 'Phone number is invalid.');
-            } else {
-                cleanInput(element)
-            }
-        } else if (element.name === `email`) {
-            if (element.value.length < 9 || !element.value.includes(`@`) || !element.value.includes(`.`)) {
-                alarm(element, 'Email address is invalid.')
-                canAddItem = false
-            } else {
-                cleanInput(element)
-            }
-        }
-    })
 
-    if (canAddItem === true) {
-        let ul = document.createElement("ul")
-        ul.textContent = "ID: " + id
-        creatingItem(ul, firstName, lastName, age, knowledge, group, interestCheckeds, email, phoneNumber)
-        warningBox(error, `Created: ${firstName}`, `rgb(10, 180, 180)`)
+    let canAddItem = formValidation(contactsForm)
 
-    } else {
-        warningBox(error,`Some fields are missing...`, `red`)
-    }
-
-    let localStorageStudentData = JSON.parse(localStorage.getItem(`students`))
-    let object = {
-        id,
-        firstName,
-        lastName,
-        age,
-        phoneNumber,
-        email,
-        knowledge,
-        group,
-        interest: interestCheckeds
-    }
-    localStorageStudentData.push(object)
-    localStorage.setItem(`students`, JSON.stringify(localStorageStudentData))
+    orCreateItem(contactsForm, canAddItem, id, firstName, lastName, age, knowledge, group, interestCheckeds, email, phoneNumber)
 
     contactsForm.reset()
 
-    localStorage.removeItem('firstName');
-    localStorage.removeItem('lastName');
-    localStorage.removeItem('age');
-    localStorage.removeItem('phoneNumber');
-    localStorage.removeItem('email');
-    localStorage.removeItem('knowledge');
-    localStorage.removeItem('group');
-    localStorage.removeItem('it-program');
+    addStudentItemToLocalStorage(id, firstName, lastName, age, phoneNumber, email, knowledge, group, interestCheckeds)
+    
+    removeFromLocal()
 
 })
 function creatingItem(ul, firstName, lastName, age, knowledge, group, interest, email, phoneNumber) {
@@ -302,6 +228,70 @@ function addLiElement(ul, text) {
 
 }
 
+function orCreateItem(contactsForm, canAddItem, id, firstName, lastName, age, knowledge, group, interestCheckeds, email, phoneNumber) {
+    let error = contactsForm.querySelector(`.error`)
+    if (canAddItem === true) {
+        let ul = document.createElement("ul")
+        ul.textContent = "ID: " + id
+        creatingItem(ul, firstName, lastName, age, knowledge, group, interestCheckeds, email, phoneNumber)
+        warningBox(error, `Created: ${firstName}`, `rgb(10, 180, 180)`)
+
+    } else {
+        warningBox(error, `Some fields are missing...`, `red`)
+    }
+}
+
+function formValidation(contactsForm) {
+    let inputs = contactsForm.querySelectorAll(`input.inputFields`)
+    let canAddItem = true
+
+    inputs.forEach(element => {
+        if (element.value === "") {
+            alarm(element, `This field is required.`)
+            canAddItem = false
+        } else if (element.name === `firstName`) {
+            if (element.value.length < 3) {
+                alarm(element, 'First name is too short. At least 3 symbols is required.')
+                canAddItem = false
+            } else {
+                cleanInput(element)
+            }
+        } else if (element.name === `lastName`) {
+            if (element.value.length < 3) {
+                alarm(element, 'Last name is too short. At least 3 symbols is required.')
+                canAddItem = false
+            } else {
+                cleanInput(element)
+            }
+        } else if (element.name === `age`) {
+            if (element.value > 120) {
+                alarm(element, 'Age cannot be more then 120 years.')
+                canAddItem = false
+            } else if (element.value < 0) {
+                alarm(element, 'Age cannot be a negative number.')
+                canAddItem = false
+            } else {
+                cleanInput(element)
+            }
+        } else if (element.name === 'phoneNumber') {
+            if (element.value.length < 9 || element.value.length > 12) {
+                canAddItem = false;
+                alarm(element, 'Phone number is invalid.');
+            } else {
+                cleanInput(element)
+            }
+        } else if (element.name === `email`) {
+            if (element.value.length < 9 || !element.value.includes(`@`) || !element.value.includes(`.`)) {
+                alarm(element, 'Email address is invalid.')
+                canAddItem = false
+            } else {
+                cleanInput(element)
+            }
+        }
+    })
+    return canAddItem
+}
+
 function cleanInput(element) {
     element.style.borderColor = `rgb(10, 180, 180)`
     element.placeholder = ``
@@ -309,15 +299,42 @@ function cleanInput(element) {
 
 function warningBox(error, text, color) {
     error.textContent = text
-        error.style.color = color
-        setTimeout(() => {
-            error.textContent = ``
-        }, 5000);
+    error.style.color = color
+    setTimeout(() => {
+        error.textContent = ``
+    }, 5000);
 }
 
 function alarm(element, text) {
     element.placeholder = text
     element.style.borderColor = `red`
+}
+function addStudentItemToLocalStorage(id, firstName, lastName, age, phoneNumber, email, knowledge, group, interestCheckeds) {
+    let localStorageStudentData = JSON.parse(localStorage.getItem(`students`))
+    let object = {
+        id,
+        firstName,
+        lastName,
+        age,
+        phoneNumber,
+        email,
+        knowledge,
+        group,
+        interest: interestCheckeds
+    }
+    localStorageStudentData.push(object)
+    localStorage.setItem(`students`, JSON.stringify(localStorageStudentData))
+}
+
+function removeFromLocal() {
+    localStorage.removeItem('firstName');
+    localStorage.removeItem('lastName');
+    localStorage.removeItem('age');
+    localStorage.removeItem('phoneNumber');
+    localStorage.removeItem('email');
+    localStorage.removeItem('knowledge');
+    localStorage.removeItem('group');
+    localStorage.removeItem('it-program');
 }
 
 function formDatainLocalStorage(form) {
